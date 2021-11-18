@@ -319,7 +319,7 @@ public class OrderServiceImpl implements OrderService{
 
 
 
-#### 새로운 구조와 할인 정책 적용
+### 새로운 구조와 할인 정책 적용
 
 - 처음으로 돌아가서 정액 할인 정책을 정률% 할인 정책으로 변경해보자.
 - FixDiscountPolicy → RateDiscountPolicy
@@ -482,7 +482,7 @@ public class OrderServiceImpl implements OrderService{
 
 #### Spring 기반으로 변경
 
-### pring 기반으로 변경
+### Spring 기반으로 변경
 
 **AppConfig.java**
 
@@ -574,7 +574,7 @@ ApplicationContext applicationContext = new AnnotationConfigApplicationContext(A
 
 
 
-#### 컨테이너에 등록된 모든 빈 조회
+### 컨테이너에 등록된 모든 빈 조회
 
 스프링 컨테이너에 실제 스프링 빈들이 잘 등록 되었는지 확인해보자.
 
@@ -623,7 +623,7 @@ bean);
 
 
 
-#### 스프링 빈 조회 - 기본
+### 스프링 빈 조회 - 기본
 
 스프링 컨테이너에서 스프링 빈을 찾는 가장 기본적인 조회 방법
 
@@ -636,14 +636,14 @@ bean);
 
 
 
-#### 스프링 빈 조회 - 동일한 타입이 둘 이상
+### 스프링 빈 조회 - 동일한 타입이 둘 이상
 
 - 타입으로 조회 시 같은 타입의 스프링 빈이 둘 이상이면 오류가 발생한다. 이때는 빈 이름을 지정하자.
 - `ac.getBeansOfType()`을 사용하면 해당 타입의 모든 빈을 조회할 수 있다.
 
 
 
-#### 스프링 빈 조회 - 상속 관계
+### 스프링 빈 조회 - 상속 관계
 
 - 부모 타입으로 조회하면, 자식 타입도 함께 조회한다.
 - 그래서 모든 자바 객체의 최고 부모인 `Object`타입으로 조회하면, 모든 스프링 빈을 조회한다.
@@ -652,7 +652,7 @@ bean);
 
 
 
-#### BeanFactory와 ApplicationContext
+### BeanFactory와 ApplicationContext
 
 beanFactory와 ApplicationContext에 대해서 알아보자.
 
@@ -694,7 +694,7 @@ beanFactory와 ApplicationContext에 대해서 알아보자.
 
 
 
-#### 다양한 설정 형식 지원 - 자바 코드, XML
+### 다양한 설정 형식 지원 - 자바 코드, XML
 
 - 스프링 컨테이너는 다양한 형식의 설정 정보를 받아드릴 수 있게 유연하게 설계되어 있다.
 
@@ -722,7 +722,7 @@ beanFactory와 ApplicationContext에 대해서 알아보자.
 
 
 
-#### 스프링 빈 설정 메타 정보 - BeanDefinition
+### 스프링 빈 설정 메타 정보 - BeanDefinition
 
 - 스프링은 어떻게 이런 다양한 설정 형식을 지원하는 것일까? 그 중심에는 `BeanDefinition`이라는 추상화가 있다.
 
@@ -772,4 +772,24 @@ beanFactory와 ApplicationContext에 대해서 알아보자.
 - BeanDefinition을 직접 생성해서 스프링 컨테이너에 등록할 수도 있다. 하지만 실무에서 BeanDefinition을 직접 정의하거나 사용할 일은 거의 없다.
 - BeanDefinition에 대해서는 너무 깊이있게 이해하기 보다는, 스프링이 다양한 형태의 설정 정보를 BeanDefinition으로 추상화해서 사용하는 것 정도만 이해하면 된다.
 - 가끔 스프링 코드나 스프링 관련 오픈 소스의 코드를 볼 때, BeanDefinition이라는 것이 보일 때가 있다. 이때 이러한 메커니즘을 떠올리면 된다.
+
+
+
+## 4. 싱글톤 컨테이너
+
+### 웹 애플리케이션과 싱글톤
+
+- 스프링은 태생이 기업용 온라인 서비스 기술을 지원하기 위해 탄생했다.
+
+- 대부분의 스프링 애플리케이션은 웹 애플리케이션이다. 물론 웹이 아닌 애플리케이션도 얼마든지 개발할 수 있다.
+
+- 웹 애플리케이션은 보통 여러 고객이 동시에 요청한다.
+
+  ![웹 애플리케이션과 싱글톤](./assets/웹_애플리케이션과_싱글톤.jpg)
+
+- 우리가 만들었던 스프링 없는 순수한 DI 컨테이너인 AppConfig는 요청할 때마다 객체를 새로 생성한다.
+- 고객 트래픽이 초당 100이 나오면 초당 100개 객체가 생성되고 소멸된다! ➡️ 메모리 낭비
+- 해결 방안은 해당 객체가 딱 1개만 생성되고, 공유하도록 설계하면 된다. ➡️ **싱글톤 패턴**
+
+
 
