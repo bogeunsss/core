@@ -17,11 +17,17 @@ public class AppConfig {
     //@Bean memberService -> new MemoryMemberRepository()
     //@Bean orderService -> new MemoryMemberRepository()
 
+    //기대값
     //call AppConfig.memberService
     //call AppConfig.memberRepository
     //call AppConfig.memberRepository
     //call AppConfig.orderService
     //call AppConfig.memberRepository
+
+    //실제값
+    //call AppConfig.memberService
+    //call AppConfig.memberRepository
+    //call AppConfig.orderService
 
     @Bean
     public MemberService memberService() {
